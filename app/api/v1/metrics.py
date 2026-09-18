@@ -5,6 +5,7 @@ from app.models.campaign_metrics import CampaignMetric
 from app.services.metrics import get_campaign_metrics
 from app.models.campaign import Campaign
 from sqlalchemy import func
+from app.models.anomaly import Anomaly
 
 router = APIRouter()
 
@@ -31,3 +32,26 @@ def get_trend(campaign_id: int, db: Session = Depends(get_db)):
         result.append({"date": str(r.date), "cvr": cvr, "cvr_change_from_prev_day": delta})
         prev_cvr = cvr
     return result
+
+from app.models.anomaly import Anomaly
+
+@router.get("/summary")
+def get_summary(db: Session = Depends(get_db)):
+    metrics = db.query(CampaignMetric).all()
+    campaigns_count = db.query(Campaign).count()
+    anomalies_count = db.query(Anomaly).count()
+
+    total_impressions = sum(m.impressions for m in metrics)
+    total_clicks = sum(m.clicks for m in metrics)
+    total_conversions = sum(m.conversions for m in metrics)
+    total_spend = sum(m.spend for m in metrics)
+    total_revenue = sum(m.revenue for m in metrics)
+
+    return {
+        "total_impressions": total_impressions,
+        "conversion_rate": round(total_conversions / total_clicks, 4) if total_clicks else 0,
+        "revenue": round(total_revenue, 2),
+        "cost_per_acquisition": round(total_spend / total_conversions, 2) if total_conversions else 0,
+        "active_campaigns": campaigns_count,
+        "anomalies_detected": anomalies_count,
+    }

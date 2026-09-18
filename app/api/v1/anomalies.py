@@ -25,3 +25,12 @@ def list_anomalies(campaign_id: int, db: Session = Depends(get_db)):
          "actual": a.actual_value, "severity": a.severity, "explanation": a.ai_explanation}
         for a in anomalies
     ]
+@router.get("/anomalies")
+def list_all_anomalies(db: Session = Depends(get_db)):
+    anomalies = db.query(Anomaly).order_by(Anomaly.created_at.desc()).all()
+    return [
+        {"id": a.id, "campaign_id": a.campaign_id, "date": str(a.date), "metric": a.metric_name,
+         "expected": a.expected_value, "actual": a.actual_value, "severity": a.severity,
+         "explanation": a.ai_explanation, "created_at": str(a.created_at)}
+        for a in anomalies
+    ]
