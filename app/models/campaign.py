@@ -8,5 +8,6 @@ class Campaign(Base):
     name = Column(String, nullable=False)
     channel = Column(String, nullable=False)
     product_id = Column(String, nullable=True)
+    status = Column(String, nullable=False, default="active")
     start_date = Column(Date, nullable=False)
     end_date = Column(Date, nullable=True)

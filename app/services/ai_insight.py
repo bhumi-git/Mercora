@@ -1,5 +1,4 @@
 import os
-from urllib import response
 from google import genai
 from sqlalchemy.orm import Session
 from app.models.anomaly import Anomaly
@@ -15,11 +14,15 @@ Severity: {anomaly.severity}
 
 In 2-3 sentences, explain a likely cause for this and suggest one next investigation step. Be concise and practical."""
 
-    response = client.models.generate_content(
-        model="gemini-3.6-flash",
-        contents=prompt
-    )
-    return response.text
+    try:
+        response = client.models.generate_content(
+            model="gemini-3.6-flash",
+            contents=prompt
+        )
+        return response.text
+    except Exception as e:
+        print(f"AI explanation failed for anomaly {anomaly.id}: {e}")
+        return None
 
 def generate_explanations_for_anomalies(db: Session, anomalies: list[Anomaly]):
     for a in anomalies:
