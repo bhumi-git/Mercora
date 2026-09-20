@@ -37,10 +37,18 @@ def get_trend(campaign_id: int, db: Session = Depends(get_db)):
 from app.models.anomaly import Anomaly
 
 @router.get("/summary")
-def get_summary(db: Session = Depends(get_db)):
-    metrics = db.query(CampaignMetric).all()
-    campaigns_count = db.query(Campaign).count()
-    anomalies_count = db.query(Anomaly).count()
+def get_summary(campaign_id: int | None = None, db: Session = Depends(get_db)):
+    query = db.query(CampaignMetric)
+    if campaign_id:
+        query = query.filter(CampaignMetric.campaign_id == campaign_id)
+    metrics = query.all()
+
+    if campaign_id:
+        campaigns_count = 1
+        anomalies_count = db.query(Anomaly).filter(Anomaly.campaign_id == campaign_id).count()
+    else:
+        campaigns_count = db.query(Campaign).count()
+        anomalies_count = db.query(Anomaly).count()
 
     total_impressions = sum(m.impressions for m in metrics)
     total_clicks = sum(m.clicks for m in metrics)
