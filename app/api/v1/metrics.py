@@ -7,7 +7,7 @@ from sqlalchemy import func
 from fastapi import HTTPException
 from app.models.anomaly import Anomaly
 from app.models.campaign_metrics import CampaignMetric
-
+from app.core.auth import verify_api_key
 router = APIRouter()
 
 @router.get("/metrics/{campaign_id}")
@@ -59,7 +59,7 @@ def get_summary(db: Session = Depends(get_db)):
 
 
 @router.delete("/campaigns/{campaign_id}")
-def delete_campaign(campaign_id: int, db: Session = Depends(get_db)):
+def delete_campaign(campaign_id: int, db: Session = Depends(get_db), _: None = Depends(verify_api_key)):
     campaign = db.query(Campaign).filter(Campaign.id == campaign_id).first()
     if not campaign:
         raise HTTPException(status_code=404, detail="Campaign not found")

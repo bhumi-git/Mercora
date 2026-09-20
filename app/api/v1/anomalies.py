@@ -4,11 +4,12 @@ from app.core.database import get_db
 from app.services.anomaly_detection import detect_anomalies
 from app.services.ai_insight import generate_explanations_for_anomalies
 from app.models.anomaly import Anomaly
+from app.core.auth import verify_api_key
 
 router = APIRouter()
 
 @router.post("/anomalies/{campaign_id}/detect")
-def run_detection(campaign_id: int, db: Session = Depends(get_db)):
+def run_detection(campaign_id: int, db: Session = Depends(get_db), _: None = Depends(verify_api_key)):
     anomalies = detect_anomalies(db, campaign_id)
     generate_explanations_for_anomalies(db, anomalies)
     return {"detected": len(anomalies), "anomalies": [
