@@ -16,7 +16,7 @@ In 2-3 sentences, explain a likely cause for this and suggest one next investiga
 
     try:
         response = client.models.generate_content(
-            model="gemini-3.6-flash",
+            model="gemini-3.8-flash",
             contents=prompt
         )
         return response.text
