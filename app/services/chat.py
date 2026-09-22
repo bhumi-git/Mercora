@@ -40,7 +40,7 @@ DATA:
 QUESTION: {question}"""
 
     try:
-        response = client.models.generate_content(model="gemini-3.6-flash", contents=prompt)
+        response = client.models.generate_content(model="gemini-3.8-flash", contents=prompt)
         return response.text
     except Exception as e:
         print(f"Chat failed: {e}")

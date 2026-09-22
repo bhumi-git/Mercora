@@ -35,3 +35,8 @@ def list_all_anomalies(db: Session = Depends(get_db)):
          "explanation": a.ai_explanation, "created_at": str(a.created_at)}
         for a in anomalies
     ]
+@router.post("/anomalies/retry-explanations")
+def retry_missing_explanations(db: Session = Depends(get_db), _: None = Depends(verify_api_key)):
+    missing = db.query(Anomaly).filter(Anomaly.ai_explanation.is_(None)).all()
+    generate_explanations_for_anomalies(db, missing)
+    return {"retried": len(missing)}

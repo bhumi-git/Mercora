@@ -76,3 +76,11 @@ def delete_campaign(campaign_id: int, db: Session = Depends(get_db), _: None = D
     db.delete(campaign)
     db.commit()
     return {"deleted": campaign_id}
+
+@router.delete("/reset")
+def reset_all_data(db: Session = Depends(get_db), _: None = Depends(verify_api_key)):
+    db.query(Anomaly).delete()
+    db.query(CampaignMetric).delete()
+    db.query(Campaign).delete()
+    db.commit()
+    return {"status": "all data cleared"}
