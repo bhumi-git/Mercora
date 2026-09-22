@@ -13,7 +13,7 @@ app.include_router(anomalies_router, prefix="/api/v1", tags=["anomalies"])
 app.include_router(chat_router, prefix="/api/v1", tags=["chat"])
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5173", "https://mercora-b190.web.app/"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
