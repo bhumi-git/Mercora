@@ -6,7 +6,7 @@ Mercora is an AI-assisted business intelligence platform designed to transform r
 
 The project combines backend engineering, data processing, cloud-based data storage, and generative AI to explore how traditional business analytics can become more accessible and actionable.
 
-**Status:** 🚧 Active Development
+**Live app**: https://mercora-b190.web.app Live API docs: https://mercora-api.onrender.com/docs
 
 ---
 
@@ -50,22 +50,18 @@ The current version focuses on establishing the core backend and data infrastruc
 
 ### Implemented
 
-* [x] FastAPI backend
-* [x] Backend project structure
-* [x] Neon PostgreSQL database integration
-* [x] Gemini API integration
-* [x] Database setup and table creation
-* [x] Environment-based configuration
-* [ ] Data ingestion pipeline
-* [ ] Analytics engine
-* [ ] Dashboard interface
-* [ ] AI-generated business insights
-* [ ] End-to-end workflow
-* [ ] Deployment
-
-> Features marked as incomplete are actively being developed.
-
----
+*  FastAPI backend
+*  Backend project structure
+*  Neon PostgreSQL database integration
+*  Gemini API integration
+*  Database setup and table creation
+*  Environment-based configuration
+*  Data ingestion pipeline
+*  Analytics engine
+*  Dashboard interface
+*  AI-generated business insights
+*  End-to-end workflow
+*  Deployment
 
 ## Architecture
 
@@ -104,7 +100,7 @@ The planned architecture follows a modular flow:
                            └─────────────────┘
 ```
 
-*Architecture will evolve as development progresses.*
+*Architecture is scoped to evolve as development progresses.*
 
 ---
 
@@ -130,9 +126,9 @@ The planned architecture follows a modular flow:
 * Git
 * GitHub
 * VS Code
-* Python Virtual Environment
+* Python Virtual Environment(venv)
 
-### Planned / In Progress
+### Frontend/Dasboard
 
 * Data processing and analytics
 * Interactive dashboard
@@ -161,7 +157,7 @@ AI-assisted Interpretation
 Interactive Business Insights
 ```
 
-The system is being designed so that the user does not need to manually inspect every data point to understand what is happening.
+The system designed so that the user does not need to manually inspect every data point to understand what is happening.
 
 ---
 
@@ -196,25 +192,6 @@ Mercora is being built to explore several areas of modern software engineering:
 * Product-oriented problem solving
 
 The larger objective is to bridge the gap between **technical data processing and human decision-making**.
-
----
-
-## Project Structure
-
-```text
-Mercora/
-│
-├── app/
-│   ├── ...
-│
-├── create_tables.py
-├── .env.example
-├── .gitignore
-├── README.md
-└── ...
-```
-
-The structure will evolve as additional modules are implemented.
 
 ---
 
@@ -272,20 +249,20 @@ The exact command may change as the project architecture evolves.
 
 ### Phase 1 — Foundation
 
-* [x] Project setup
-* [x] FastAPI backend
-* [x] PostgreSQL/Neon integration
-* [x] Gemini API integration
+*  Project setup
+*  FastAPI backend
+*  PostgreSQL/Neon integration
+*  Gemini API integration
 
 ### Phase 2 — Data Intelligence
 
-* [ ] Data ingestion
-* [ ] Data validation
-* [ ] Data cleaning
-* [ ] Automated metric generation
-* [ ] Analytics engine
+*  Data ingestion
+*  Data validation
+*  Data cleaning
+*  Automated metric generation
+*  Analytics engine
 
 ### Phase 3 — Product Experience
 
-* [ ] Interactive dashboard
-* [ ] Data
+*  Interactive dashboard
+*  Data
