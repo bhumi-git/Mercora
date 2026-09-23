@@ -6,7 +6,11 @@ Mercora is an AI-assisted business intelligence platform designed to transform r
 
 The project combines backend engineering, data processing, cloud-based data storage, and generative AI to explore how traditional business analytics can become more accessible and actionable.
 
-**Live app**: https://mercora-b190.web.app Live API docs: https://mercora-api.onrender.com/docs
+Here are project related links:
+
+**Live app**: https://mercora-b190.web.app
+**Live API docs**: https://mercora-api.onrender.com/docs
+**Build Logs Gist**: https://gist.github.com/bhumi-git
 
 ---
 
