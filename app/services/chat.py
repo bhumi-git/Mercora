@@ -1,4 +1,5 @@
 import os
+import time
 from google import genai
 from sqlalchemy.orm import Session
 from app.models.campaign import Campaign
@@ -6,6 +7,8 @@ from app.models.campaign_metrics import CampaignMetric
 from app.models.anomaly import Anomaly
 
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+
+MODEL_FALLBACKS = ["gemini-3.1-flash-lite", "gemini-3.5-flash-lite", "gemini-3.8-flash", "gemini-3.6-flash"]
 
 def build_context(db: Session) -> str:
     campaigns = db.query(Campaign).all()
@@ -39,9 +42,12 @@ DATA:
 
 QUESTION: {question}"""
 
-    try:
-        response = client.models.generate_content(model="gemini-3.8-flash", contents=prompt)
-        return response.text
-    except Exception as e:
-        print(f"Chat failed: {e}")
-        return "I'm having trouble reaching the AI service right now. Please try again in a moment."
+    for model_name in MODEL_FALLBACKS:
+        for attempt in range(2):
+            try:
+                response = client.models.generate_content(model=model_name, contents=prompt)
+                return response.text
+            except Exception as e:
+                print(f"{model_name} attempt {attempt + 1} failed: {e}")
+                time.sleep(1.5)
+    return "I'm having trouble reaching the AI service right now. Please try again in a moment."
